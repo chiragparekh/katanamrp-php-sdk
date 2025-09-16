@@ -9,7 +9,7 @@ class Supplier
     public function __construct(
         public int $id,
         public string $name,
-        public string $email,
+        public ?string $email,
         public ?string $phone,
         public ?string $comment,
         public string $currency,
@@ -25,7 +25,7 @@ class Supplier
         return new self(
             id: $data['id'],
             name: $data['name'],
-            email: $data['email'],
+            email: $data['email'] ?? null,
             phone: $data['phone'] ?? null,
             comment: $data['comment'] ?? null,
             currency: $data['currency'],

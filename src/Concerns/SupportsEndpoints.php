@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Concerns;
 
+use Chirag\KatanaPhpSdk\Resources\LocationResource;
 use Chirag\KatanaPhpSdk\Resources\MaterialResource;
 use Chirag\KatanaPhpSdk\Resources\ProductResource;
 use Chirag\KatanaPhpSdk\Resources\PurchaseOrderResource;
@@ -39,5 +40,10 @@ trait SupportsEndpoints
     public function suppliers(): SupplierResource
     {
         return new SupplierResource($this);
+    }
+
+    public function locations(): LocationResource
+    {
+        return new LocationResource($this);
     }
 }

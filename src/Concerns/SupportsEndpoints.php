@@ -5,6 +5,8 @@ namespace Chirag\KatanaPhpSdk\Concerns;
 use Chirag\KatanaPhpSdk\Resources\InventoryMovementResource;
 use Chirag\KatanaPhpSdk\Resources\InventoryResource;
 use Chirag\KatanaPhpSdk\Resources\LocationResource;
+use Chirag\KatanaPhpSdk\Resources\ManufacturingOrderOperationRowResource;
+use Chirag\KatanaPhpSdk\Resources\ManufacturingOrderRecipeRowResource;
 use Chirag\KatanaPhpSdk\Resources\ManufacturingOrderResource;
 use Chirag\KatanaPhpSdk\Resources\MaterialResource;
 use Chirag\KatanaPhpSdk\Resources\ProductResource;
@@ -63,5 +65,15 @@ trait SupportsEndpoints
     public function manufacturingOrders(): ManufacturingOrderResource
     {
         return new ManufacturingOrderResource($this);
+    }
+
+    public function manufacturingOrderOperationRows(): ManufacturingOrderOperationRowResource
+    {
+        return new ManufacturingOrderOperationRowResource($this);
+    }
+
+    public function manufacturingOrderRecipeRows(): ManufacturingOrderRecipeRowResource
+    {
+        return new ManufacturingOrderRecipeRowResource($this);
     }
 }

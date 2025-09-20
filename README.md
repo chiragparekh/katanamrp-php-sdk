@@ -7,7 +7,7 @@ A modern PHP SDK for the [Katana MRP API](https://developer.katanamrp.com/). Thi
 You can install the package via Composer:
 
 ```bash
-composer require chirag/katana-php-sdk
+composer require chiragparekh/katana-php-sdk
 ```
 
 ## Basic Usage

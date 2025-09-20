@@ -1,5 +1,5 @@
 {
-    "name": "chirag/katana-php-sdk",
+    "name": "chiragparekh/katana-php-sdk",
     "version": "0.0.1",
     "description": "PHP SDK for KatanaMRP",
     "autoload": {

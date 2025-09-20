@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Concerns;
 
+use Chirag\KatanaPhpSdk\Resources\BomRowResource;
 use Chirag\KatanaPhpSdk\Resources\CustomerResource;
 use Chirag\KatanaPhpSdk\Resources\InventoryMovementResource;
 use Chirag\KatanaPhpSdk\Resources\InventoryResource;
@@ -99,5 +100,10 @@ trait SupportsEndpoints
     public function customers(): CustomerResource
     {
         return new CustomerResource($this);
+    }
+
+    public function bomRows(): BomRowResource
+    {
+        return new BomRowResource($this);
     }
 }

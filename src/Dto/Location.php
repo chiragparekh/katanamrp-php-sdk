@@ -31,7 +31,7 @@ class Location
             address: isset($data['address']) ? LocationAddress::fromResponse($data['address']) : null,
             isPrimary: $data['is_primary'],
             salesAllowed: $data['sales_allowed'],
-            purchaseAllowed: $data['purchase_allowed'],
+            purchaseAllowed: $data['purchase_allowed'] ?? true,
             manufacturingAllowed: $data['manufacturing_allowed'],
             createdAt: $data['created_at'],
             updatedAt: $data['updated_at'],

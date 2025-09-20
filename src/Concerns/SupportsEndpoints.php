@@ -2,6 +2,8 @@
 
 namespace Chirag\KatanaPhpSdk\Concerns;
 
+use Chirag\KatanaPhpSdk\Resources\InventoryMovementResource;
+use Chirag\KatanaPhpSdk\Resources\InventoryResource;
 use Chirag\KatanaPhpSdk\Resources\LocationResource;
 use Chirag\KatanaPhpSdk\Resources\MaterialResource;
 use Chirag\KatanaPhpSdk\Resources\ProductResource;
@@ -45,5 +47,15 @@ trait SupportsEndpoints
     public function locations(): LocationResource
     {
         return new LocationResource($this);
+    }
+
+    public function inventory(): InventoryResource
+    {
+        return new InventoryResource($this);
+    }
+
+    public function inventoryMovements(): InventoryMovementResource
+    {
+        return new InventoryMovementResource($this);
     }
 }

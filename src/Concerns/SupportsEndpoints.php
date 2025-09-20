@@ -12,6 +12,8 @@ use Chirag\KatanaPhpSdk\Resources\MaterialResource;
 use Chirag\KatanaPhpSdk\Resources\ProductResource;
 use Chirag\KatanaPhpSdk\Resources\PurchaseOrderResource;
 use Chirag\KatanaPhpSdk\Resources\PurchaseOrderRowResource;
+use Chirag\KatanaPhpSdk\Resources\SalesOrderResource;
+use Chirag\KatanaPhpSdk\Resources\SalesOrderRowResource;
 use Chirag\KatanaPhpSdk\Resources\SupplierResource;
 use Chirag\KatanaPhpSdk\Resources\VariantResource;
 use Chirag\KatanaPhpSdk\Resources\WebhookResource;
@@ -81,5 +83,15 @@ trait SupportsEndpoints
     public function webhooks(): WebhookResource
     {
         return new WebhookResource($this);
+    }
+
+    public function salesOrders(): SalesOrderResource
+    {
+        return new SalesOrderResource($this);
+    }
+
+    public function salesOrderRows(): SalesOrderRowResource
+    {
+        return new SalesOrderRowResource($this);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Concerns;
 
+use Chirag\KatanaPhpSdk\Resources\CustomerResource;
 use Chirag\KatanaPhpSdk\Resources\InventoryMovementResource;
 use Chirag\KatanaPhpSdk\Resources\InventoryResource;
 use Chirag\KatanaPhpSdk\Resources\LocationResource;
@@ -93,5 +94,10 @@ trait SupportsEndpoints
     public function salesOrderRows(): SalesOrderRowResource
     {
         return new SalesOrderRowResource($this);
+    }
+
+    public function customers(): CustomerResource
+    {
+        return new CustomerResource($this);
     }
 }

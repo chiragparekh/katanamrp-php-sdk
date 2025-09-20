@@ -269,7 +269,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Support
 
-For support, please open an issue on GitHub or contact us through the [Katana support channels](https://katanamrp.com/support).
+For support, please open an issue on GitHub.
 
 ## Changelog
 

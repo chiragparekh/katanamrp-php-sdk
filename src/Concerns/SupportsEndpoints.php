@@ -14,6 +14,7 @@ use Chirag\KatanaPhpSdk\Resources\PurchaseOrderResource;
 use Chirag\KatanaPhpSdk\Resources\PurchaseOrderRowResource;
 use Chirag\KatanaPhpSdk\Resources\SupplierResource;
 use Chirag\KatanaPhpSdk\Resources\VariantResource;
+use Chirag\KatanaPhpSdk\Resources\WebhookResource;
 
 trait SupportsEndpoints
 {
@@ -75,5 +76,10 @@ trait SupportsEndpoints
     public function manufacturingOrderRecipeRows(): ManufacturingOrderRecipeRowResource
     {
         return new ManufacturingOrderRecipeRowResource($this);
+    }
+
+    public function webhooks(): WebhookResource
+    {
+        return new WebhookResource($this);
     }
 }

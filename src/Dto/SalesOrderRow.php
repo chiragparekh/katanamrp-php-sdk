@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class SalesOrderRow
@@ -19,12 +20,12 @@ class SalesOrderRow
         public float $total,
         public float $totalInBaseCurrency,
         public ?float $conversionRate,
-        public ?string $conversionDate,
+        public ?DateTime $conversionDate,
         public string $productAvailability,
-        public ?string $productExpectedDate,
-        public string $createdAt,
-        public string $updatedAt,
-        public ?string $deletedAt,
+        public ?DateTime $productExpectedDate,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
+        public ?DateTime $deletedAt,
         public ?int $linkedManufacturingOrderId,
         public array $attributes,
         public array $batchTransactions,
@@ -47,12 +48,12 @@ class SalesOrderRow
             total: $data['total'],
             totalInBaseCurrency: $data['total_in_base_currency'],
             conversionRate: $data['conversion_rate'] ?? null,
-            conversionDate: $data['conversion_date'] ?? null,
+            conversionDate: isset($data['conversion_date']) ? new DateTime($data['conversion_date']) : null,
             productAvailability: $data['product_availability'],
-            productExpectedDate: $data['product_expected_date'] ?? null,
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
-            deletedAt: $data['deleted_at'] ?? null,
+            productExpectedDate: isset($data['product_expected_date']) ? new DateTime($data['product_expected_date']) : null,
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
+            deletedAt: isset($data['deleted_at']) ? new DateTime($data['deleted_at']) : null,
             linkedManufacturingOrderId: $data['linked_manufacturing_order_id'] ?? null,
             attributes: array_map(
                 fn (array $item) => Attribute::fromResponse($item),

@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class CustomerAddress
@@ -20,8 +21,8 @@ class CustomerAddress
         public ?string $state,
         public ?string $zip,
         public ?string $country,
-        public string $updatedAt,
-        public string $createdAt,
+        public DateTime $updatedAt,
+        public DateTime $createdAt,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -40,8 +41,8 @@ class CustomerAddress
             state: $data['state'] ?? null,
             zip: $data['zip'] ?? null,
             country: $data['country'] ?? null,
-            updatedAt: $data['updated_at'],
-            createdAt: $data['created_at'],
+            updatedAt: new DateTime($data['updated_at']),
+            createdAt: new DateTime($data['created_at']),
         );
     }
 

@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class PurchaseOrder
@@ -14,18 +15,18 @@ class PurchaseOrder
         public ?int $defaultGroupId,
         public int $supplierId,
         public string $currency,
-        public string $expectedArrivalDate,
-        public string $orderCreatedDate,
+        public DateTime $expectedArrivalDate,
+        public DateTime $orderCreatedDate,
         public ?string $additionalInfo,
         public int $locationId,
         public ?string $ingredientAvailability,
-        public ?string $ingredientExpectedDate,
+        public ?DateTime $ingredientExpectedDate,
         public ?int $trackingLocationId,
         public float $total,
         public float $totalInBaseCurrency,
-        public string $createdAt,
-        public string $updatedAt,
-        public ?string $deletedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
+        public ?DateTime $deletedAt,
         public string $billingStatus,
         public string $lastDocumentStatus,
         public array $purchaseOrderRows,
@@ -42,18 +43,18 @@ class PurchaseOrder
             defaultGroupId: $data['default_group_id'] ?? null,
             supplierId: $data['supplier_id'],
             currency: $data['currency'],
-            expectedArrivalDate: $data['expected_arrival_date'],
-            orderCreatedDate: $data['order_created_date'],
+            expectedArrivalDate: new DateTime($data['expected_arrival_date']),
+            orderCreatedDate: new DateTime($data['order_created_date']),
             additionalInfo: $data['additional_info'] ?? null,
             locationId: $data['location_id'],
             ingredientAvailability: $data['ingredient_availability'] ?? null,
-            ingredientExpectedDate: $data['ingredient_expected_date'] ?? null,
+            ingredientExpectedDate: isset($data['ingredient_expected_date']) ? new DateTime($data['ingredient_expected_date']) : null,
             trackingLocationId: $data['tracking_location_id'] ?? null,
             total: $data['total'],
             totalInBaseCurrency: $data['total_in_base_currency'],
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
-            deletedAt: $data['deleted_at'] ?? null,
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
+            deletedAt: isset($data['deleted_at']) ? new DateTime($data['deleted_at']) : null,
             billingStatus: $data['billing_status'],
             lastDocumentStatus: $data['last_document_status'],
             purchaseOrderRows: array_map(

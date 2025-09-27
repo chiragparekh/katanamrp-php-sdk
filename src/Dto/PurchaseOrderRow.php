@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class PurchaseOrderRow
@@ -17,14 +18,14 @@ class PurchaseOrderRow
         public ?string $purchaseUom,
         public float $total,
         public float $totalInBaseCurrency,
-        public string $createdAt,
-        public string $updatedAt,
-        public ?string $deletedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
+        public ?DateTime $deletedAt,
         public string $currency,
         public ?float $conversionRate,
-        public ?string $conversionDate,
-        public ?string $receivedDate,
-        public ?string $arrivalDate,
+        public ?DateTime $conversionDate,
+        public ?DateTime $receivedDate,
+        public ?DateTime $arrivalDate,
         public int $purchaseOrderId,
         public ?float $landedCost,
         public ?int $groupId,
@@ -44,14 +45,14 @@ class PurchaseOrderRow
             purchaseUom: $data['purchase_uom'] ?? null,
             total: $data['total'],
             totalInBaseCurrency: $data['total_in_base_currency'],
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
-            deletedAt: $data['deleted_at'] ?? null,
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
+            deletedAt: isset($data['deleted_at']) ? new DateTime($data['deleted_at']) : null,
             currency: $data['currency'],
             conversionRate: $data['conversion_rate'] ?? null,
-            conversionDate: $data['conversion_date'] ?? null,
-            receivedDate: $data['received_date'] ?? null,
-            arrivalDate: $data['arrival_date'] ?? null,
+            conversionDate: isset($data['conversion_date']) ? new DateTime($data['conversion_date']) : null,
+            receivedDate: isset($data['received_date']) ? new DateTime($data['received_date']) : null,
+            arrivalDate: isset($data['arrival_date']) ? new DateTime($data['arrival_date']) : null,
             purchaseOrderId: $data['purchase_order_id'],
             landedCost: $data['landed_cost'] ?? null,
             groupId: $data['group_id'] ?? null,

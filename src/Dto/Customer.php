@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class Customer
@@ -19,9 +20,9 @@ class Customer
         public string $currency,
         public ?string $referenceId,
         public ?string $category,
-        public string $createdAt,
-        public string $updatedAt,
-        public ?string $deletedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
+        public ?DateTime $deletedAt,
         public ?int $defaultBillingId,
         public ?int $defaultShippingId,
         public array $addresses,
@@ -42,9 +43,9 @@ class Customer
             currency: $data['currency'],
             referenceId: $data['reference_id'] ?? null,
             category: $data['category'] ?? null,
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
-            deletedAt: $data['deleted_at'] ?? null,
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
+            deletedAt: isset($data['deleted_at']) ? new DateTime($data['deleted_at']) : null,
             defaultBillingId: $data['default_billing_id'] ?? null,
             defaultShippingId: $data['default_shipping_id'] ?? null,
             addresses: array_map(

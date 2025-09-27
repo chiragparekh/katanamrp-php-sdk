@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class ReorderPoint
@@ -10,8 +11,8 @@ class ReorderPoint
         public int $variantId,
         public int $locationId,
         public int $value,
-        public string $createdAt,
-        public string $updatedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -20,8 +21,8 @@ class ReorderPoint
             variantId: $data['variant_id'],
             locationId: $data['location_id'],
             value: $data['value'],
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
         );
     }
 

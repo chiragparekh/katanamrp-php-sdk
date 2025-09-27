@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class Material
@@ -17,14 +18,14 @@ class Material
         public ?float $purchaseUomConversionRate,
         public bool $batchTracked,
         public ?bool $isSellable,
-        public ?string $archivedAt,
+        public ?DateTime $archivedAt,
         public array $variants,
         public array $configs,
         public ?string $additionalInfo,
         public ?int $customFieldCollectionId,
-        public ?string $createdAt,
-        public ?string $updatedAt,
-        public ?string $deletedAt,
+        public ?DateTime $createdAt,
+        public ?DateTime $updatedAt,
+        public ?DateTime $deletedAt,
         public ?Supplier $supplier,
     ) {}
 
@@ -41,7 +42,7 @@ class Material
             purchaseUomConversionRate: $data['purchase_uom_conversion_rate'] ?? null,
             batchTracked: $data['batch_tracked'],
             isSellable: $data['is_sellable'] ?? null,
-            archivedAt: $data['archived_at'] ?? null,
+            archivedAt: isset($data['archived_at']) ? new DateTime($data['archived_at']) : null,
             variants: array_map(
                 fn (array $item) => Variant::fromResponse($item),
                 $data['variants'] ?? []
@@ -52,9 +53,9 @@ class Material
             ),
             additionalInfo: $data['additional_info'] ?? null,
             customFieldCollectionId: $data['custom_field_collection_id'] ?? null,
-            createdAt: $data['created_at'] ?? null,
-            updatedAt: $data['updated_at'] ?? null,
-            deletedAt: $data['deleted_at'] ?? null,
+            createdAt: isset($data['created_at']) ? new DateTime($data['created_at']) : null,
+            updatedAt: isset($data['updated_at']) ? new DateTime($data['updated_at']) : null,
+            deletedAt: isset($data['deleted_at']) ? new DateTime($data['deleted_at']) : null,
             supplier: isset($data['supplier']) ? Supplier::fromResponse($data['supplier']) : null,
         );
     }

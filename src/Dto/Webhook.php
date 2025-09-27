@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class Webhook
@@ -13,8 +14,8 @@ class Webhook
         public bool $enabled,
         public ?string $description,
         public array $subscribedEvents,
-        public string $createdAt,
-        public string $updatedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -26,8 +27,8 @@ class Webhook
             enabled: $data['enabled'],
             description: $data['description'] ?? null,
             subscribedEvents: $data['subscribed_events'] ?? [],
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
         );
     }
 

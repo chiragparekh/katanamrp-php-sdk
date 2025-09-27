@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class Product
@@ -22,13 +23,13 @@ class Product
         public bool $batchTracked,
         public bool $operationsInSequence,
         public bool $serialTracked,
-        public ?string $archivedAt,
+        public ?DateTime $archivedAt,
         public array $variants,
         public array $configs,
         public ?string $additionalInfo,
         public ?int $customFieldCollectionId,
-        public string $createdAt,
-        public string $updatedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
         public ?Supplier $supplier,
     ) {}
 
@@ -50,7 +51,7 @@ class Product
             batchTracked: $data['batch_tracked'],
             operationsInSequence: $data['operations_in_sequence'],
             serialTracked: $data['serial_tracked'],
-            archivedAt: $data['archived_at'] ?? null,
+            archivedAt: isset($data['archived_at']) ? new DateTime($data['archived_at']) : null,
             variants: array_map(
                 fn (array $item) => Variant::fromResponse($item),
                 $data['variants'] ?? []
@@ -61,8 +62,8 @@ class Product
             ),
             additionalInfo: $data['additional_info'] ?? null,
             customFieldCollectionId: $data['custom_field_collection_id'] ?? null,
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
             supplier: isset($data['supplier']) ? Supplier::fromResponse($data['supplier']) : null,
         );
     }

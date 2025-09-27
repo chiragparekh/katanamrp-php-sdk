@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class ManufacturingOrder
@@ -15,9 +16,9 @@ class ManufacturingOrder
         public ?float $actualQuantity,
         public array $batchTransactions,
         public int $locationId,
-        public string $orderCreatedDate,
-        public ?string $doneDate,
-        public string $productionDeadlineDate,
+        public DateTime $orderCreatedDate,
+        public ?DateTime $doneDate,
+        public DateTime $productionDeadlineDate,
         public string $additionalInfo,
         public bool $isLinkedToSalesOrder,
         public string $ingredientAvailability,
@@ -26,13 +27,13 @@ class ManufacturingOrder
         public float $totalPlannedTime,
         public ?int $salesOrderId,
         public ?int $salesOrderRowId,
-        public ?string $salesOrderDeliveryDeadline,
+        public ?DateTime $salesOrderDeliveryDeadline,
         public ?float $materialCost,
-        public string $createdAt,
-        public string $updatedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
         public ?float $subassembliesCost,
         public ?float $operationsCost,
-        public ?string $deletedAt,
+        public ?DateTime $deletedAt,
         public array $serialNumbers,
     ) {}
 
@@ -47,9 +48,9 @@ class ManufacturingOrder
             actualQuantity: $data['actual_quantity'] ?? null,
             batchTransactions: $data['batch_transactions'] ?? [],
             locationId: $data['location_id'],
-            orderCreatedDate: $data['order_created_date'],
-            doneDate: $data['done_date'] ?? null,
-            productionDeadlineDate: $data['production_deadline_date'],
+            orderCreatedDate: new DateTime($data['order_created_date']),
+            doneDate: isset($data['done_date']) ? new DateTime($data['done_date']) : null,
+            productionDeadlineDate: new DateTime($data['production_deadline_date']),
             additionalInfo: $data['additional_info'],
             isLinkedToSalesOrder: $data['is_linked_to_sales_order'],
             ingredientAvailability: $data['ingredient_availability'],
@@ -58,13 +59,13 @@ class ManufacturingOrder
             totalPlannedTime: $data['total_planned_time'],
             salesOrderId: $data['sales_order_id'] ?? null,
             salesOrderRowId: $data['sales_order_row_id'] ?? null,
-            salesOrderDeliveryDeadline: $data['sales_order_delivery_deadline'] ?? null,
+            salesOrderDeliveryDeadline: isset($data['sales_order_delivery_deadline']) ? new DateTime($data['sales_order_delivery_deadline']) : null,
             materialCost: $data['material_cost'] ?? null,
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
             subassembliesCost: $data['subassemblies_cost'] ?? null,
             operationsCost: $data['operations_cost'] ?? null,
-            deletedAt: $data['deleted_at'] ?? null,
+            deletedAt: isset($data['deleted_at']) ? new DateTime($data['deleted_at']) : null,
             serialNumbers: array_map(
                 fn (array $item) => SerialNumber::fromResponse($item),
                 $data['serial_numbers'] ?? []

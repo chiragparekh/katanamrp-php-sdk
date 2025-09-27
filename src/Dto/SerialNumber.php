@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class SerialNumber
@@ -12,7 +13,7 @@ class SerialNumber
         public string $serialNumber,
         public string $resourceType,
         public int $resourceId,
-        public string $transactionDate,
+        public DateTime $transactionDate,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -23,7 +24,7 @@ class SerialNumber
             serialNumber: $data['serial_number'],
             resourceType: $data['resource_type'],
             resourceId: $data['resource_id'],
-            transactionDate: $data['transaction_date'],
+            transactionDate: new DateTime($data['transaction_date']),
         );
     }
 

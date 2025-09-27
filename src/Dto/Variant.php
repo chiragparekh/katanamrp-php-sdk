@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class Variant
@@ -14,9 +15,9 @@ class Variant
         public ?int $materialId,
         public ?float $purchasePrice,
         public string $type,
-        public string $createdAt,
-        public string $updatedAt,
-        public ?string $deletedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
+        public ?DateTime $deletedAt,
         public ?string $internalBarcode,
         public ?string $registeredBarcode,
         public array $supplierItemCodes,
@@ -37,9 +38,9 @@ class Variant
             materialId: $data['material_id'] ?? null,
             purchasePrice: $data['purchase_price'] ?? null,
             type: $data['type'],
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
-            deletedAt: $data['deleted_at'] ?? null,
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
+            deletedAt: isset($data['deleted_at']) ? new DateTime($data['deleted_at']) : null,
             internalBarcode: $data['internal_barcode'] ?? null,
             registeredBarcode: $data['registered_barcode'] ?? null,
             supplierItemCodes: $data['supplier_item_codes'] ?? [],

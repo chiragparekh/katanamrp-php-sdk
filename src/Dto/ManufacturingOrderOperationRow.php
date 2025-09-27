@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class ManufacturingOrderOperationRow
@@ -28,10 +29,10 @@ class ManufacturingOrderOperationRow
         public ?float $costParameter,
         public ?int $groupBoundary,
         public bool $isStatusActionable,
-        public ?string $completedAt,
-        public string $createdAt,
-        public string $updatedAt,
-        public ?string $deletedAt,
+        public ?DateTime $completedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
+        public ?DateTime $deletedAt,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -64,10 +65,10 @@ class ManufacturingOrderOperationRow
             costParameter: $data['cost_parameter'] ?? null,
             groupBoundary: $data['group_boundary'] ?? null,
             isStatusActionable: $data['is_status_actionable'],
-            completedAt: $data['completed_at'] ?? null,
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
-            deletedAt: $data['deleted_at'] ?? null,
+            completedAt: isset($data['completed_at']) ? new DateTime($data['completed_at']) : null,
+            createdAt: new DateTime($data['created_at']),
+            updatedAt: new DateTime($data['updated_at']),
+            deletedAt: isset($data['deleted_at']) ? new DateTime($data['deleted_at']) : null,
         );
     }
 

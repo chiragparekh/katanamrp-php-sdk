@@ -3,6 +3,7 @@
 namespace Chirag\KatanaPhpSdk\Resources;
 
 use Chirag\KatanaPhpSdk\Dto\ManufacturingOrder;
+use Chirag\KatanaPhpSdk\Dto\Pagination;
 use Chirag\KatanaPhpSdk\Requests\ManufacturingOrder\CreateManufacturingOrderRequest;
 use Chirag\KatanaPhpSdk\Requests\ManufacturingOrder\DeleteManufacturingOrderRequest;
 use Chirag\KatanaPhpSdk\Requests\ManufacturingOrder\ListManufacturingOrdersRequest;
@@ -58,5 +59,17 @@ class ManufacturingOrderResource extends BaseResource
         $this->connector->send($request);
 
         return $this;
+    }
+
+    public function pagination(array $query = []): Pagination
+    {
+        $request = new ListManufacturingOrdersRequest;
+
+        $request->query()->merge($query);
+        $request->query()->add('page', 1);
+
+        $response = $this->connector->send($request);
+
+        return Pagination::fromResponse(json_decode($response->headers()->get('X-Pagination'), true));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Resources;
 
+use Chirag\KatanaPhpSdk\Dto\Pagination;
 use Chirag\KatanaPhpSdk\Dto\Webhook;
 use Chirag\KatanaPhpSdk\Requests\Webhook\CreateWebhookRequest;
 use Chirag\KatanaPhpSdk\Requests\Webhook\DeleteWebhookRequest;
@@ -58,5 +59,17 @@ class WebhookResource extends BaseResource
         $this->connector->send($request);
 
         return $this;
+    }
+
+    public function pagination(array $query = []): Pagination
+    {
+        $request = new ListWebhooksRequest;
+
+        $request->query()->merge($query);
+        $request->query()->add('page', 1);
+
+        $response = $this->connector->send($request);
+
+        return Pagination::fromResponse(json_decode($response->headers()->get('X-Pagination'), true));
     }
 }

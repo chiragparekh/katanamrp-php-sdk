@@ -3,6 +3,7 @@
 namespace Chirag\KatanaPhpSdk\Resources;
 
 use Chirag\KatanaPhpSdk\Dto\Material;
+use Chirag\KatanaPhpSdk\Dto\Pagination;
 use Chirag\KatanaPhpSdk\Requests\Material\CreateMaterialRequest;
 use Chirag\KatanaPhpSdk\Requests\Material\DeleteMaterialRequest;
 use Chirag\KatanaPhpSdk\Requests\Material\ListMaterialsRequest;
@@ -60,5 +61,17 @@ class MaterialResource extends BaseResource
         $this->connector->send($request);
 
         return $this;
+    }
+
+    public function pagination(array $query = []): Pagination
+    {
+        $request = new ListMaterialsRequest;
+
+        $request->query()->merge($query);
+        $request->query()->add('page', 1);
+
+        $response = $this->connector->send($request);
+
+        return Pagination::fromResponse(json_decode($response->headers()->get('X-Pagination'), true));
     }
 }

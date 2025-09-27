@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Resources;
 
+use Chirag\KatanaPhpSdk\Dto\Pagination;
 use Chirag\KatanaPhpSdk\Dto\Supplier;
 use Chirag\KatanaPhpSdk\Requests\Supplier\CreateSupplierRequest;
 use Chirag\KatanaPhpSdk\Requests\Supplier\DeleteSupplierRequest;
@@ -50,5 +51,17 @@ class SupplierResource extends BaseResource
         $this->connector->send($request);
 
         return $this;
+    }
+
+    public function pagination(array $query = []): Pagination
+    {
+        $request = new ListSuppliersRequest;
+
+        $request->query()->merge($query);
+        $request->query()->add('page', 1);
+
+        $response = $this->connector->send($request);
+
+        return Pagination::fromResponse(json_decode($response->headers()->get('X-Pagination'), true));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Resources;
 
+use Chirag\KatanaPhpSdk\Dto\Pagination;
 use Chirag\KatanaPhpSdk\Dto\PurchaseOrder;
 use Chirag\KatanaPhpSdk\Requests\PurchaseOrder\CreatePurchaseOrderRequest;
 use Chirag\KatanaPhpSdk\Requests\PurchaseOrder\DeletePurchaseOrderRequest;
@@ -68,5 +69,17 @@ class PurchaseOrderResource extends BaseResource
         $request = new ReceivePurchaseOrderRequest($id, $data);
 
         return $this->connector->send($request)->dtoOrFail();
+    }
+
+    public function pagination(array $query = []): Pagination
+    {
+        $request = new ListPurchaseOrdersRequest;
+
+        $request->query()->merge($query);
+        $request->query()->add('page', 1);
+
+        $response = $this->connector->send($request);
+
+        return Pagination::fromResponse(json_decode($response->headers()->get('X-Pagination'), true));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Resources;
 
+use Chirag\KatanaPhpSdk\Dto\Pagination;
 use Chirag\KatanaPhpSdk\Dto\SalesOrder;
 use Chirag\KatanaPhpSdk\Requests\SalesOrder\CreateSalesOrderRequest;
 use Chirag\KatanaPhpSdk\Requests\SalesOrder\DeleteSalesOrderRequest;
@@ -68,5 +69,17 @@ class SalesOrderResource extends BaseResource
         $response = $this->connector->send($request);
 
         return $response->dtoOrFail();
+    }
+
+    public function pagination(array $query = []): Pagination
+    {
+        $request = new ListSalesOrdersRequest;
+
+        $request->query()->merge($query);
+        $request->query()->add('page', 1);
+
+        $response = $this->connector->send($request);
+
+        return Pagination::fromResponse(json_decode($response->headers()->get('X-Pagination'), true));
     }
 }

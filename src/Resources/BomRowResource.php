@@ -3,6 +3,7 @@
 namespace Chirag\KatanaPhpSdk\Resources;
 
 use Chirag\KatanaPhpSdk\Dto\BomRow;
+use Chirag\KatanaPhpSdk\Dto\Pagination;
 use Chirag\KatanaPhpSdk\Requests\BomRow\BatchCreateBomRowsRequest;
 use Chirag\KatanaPhpSdk\Requests\BomRow\CreateBomRowRequest;
 use Chirag\KatanaPhpSdk\Requests\BomRow\DeleteBomRowRequest;
@@ -60,5 +61,17 @@ class BomRowResource extends BaseResource
         $this->connector->send($request);
 
         return $this;
+    }
+
+    public function pagination(array $query = []): Pagination
+    {
+        $request = new ListBomRowsRequest;
+
+        $request->query()->merge($query);
+        $request->query()->add('page', 1);
+
+        $response = $this->connector->send($request);
+
+        return Pagination::fromResponse(json_decode($response->headers()->get('X-Pagination'), true));
     }
 }

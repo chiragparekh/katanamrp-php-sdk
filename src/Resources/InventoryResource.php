@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Resources;
 
+use Chirag\KatanaPhpSdk\Dto\Pagination;
 use Chirag\KatanaPhpSdk\Dto\ReorderPoint;
 use Chirag\KatanaPhpSdk\Dto\SafetyStock;
 use Chirag\KatanaPhpSdk\Requests\Inventory\ListInventoryRequest;
@@ -60,5 +61,17 @@ class InventoryResource extends BaseResource
         $request = new UpdateSafetyStockLevelRequest($data);
 
         return $this->connector->send($request)->dtoOrFail();
+    }
+
+    public function pagination(array $query = []): Pagination
+    {
+        $request = new ListInventoryRequest;
+
+        $request->query()->merge($query);
+        $request->query()->add('page', 1);
+
+        $response = $this->connector->send($request);
+
+        return Pagination::fromResponse(json_decode($response->headers()->get('X-Pagination'), true));
     }
 }

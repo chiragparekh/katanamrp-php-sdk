@@ -2,6 +2,7 @@
 
 namespace Chirag\KatanaPhpSdk\Dto;
 
+use DateTime;
 use Saloon\Http\Response;
 
 class BomRow
@@ -14,8 +15,8 @@ class BomRow
         public float $quantity,
         public ?string $notes,
         public int $rank,
-        public string $createdAt,
-        public string $updatedAt,
+        public DateTime $createdAt,
+        public DateTime $updatedAt,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -28,8 +29,8 @@ class BomRow
             quantity: $data['quantity'],
             notes: $data['notes'] ?? null,
             rank: $data['rank'],
-            createdAt: $data['created_at'],
-            updatedAt: $data['updated_at'],
+            createdAt: (new \DateTime($data['created_at'])),
+            updatedAt: (new \DateTime($data['updated_at'])),
         );
     }
 
